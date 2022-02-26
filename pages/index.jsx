@@ -1,34 +1,7 @@
 import { Box, Button, Text, TextField, Image } from '@skynexui/components';
 import appConfig from '../config.json';
-
-function GlobalStyle() {
-  return (
-    <style global jsx>{`
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        list-style: none;
-      }
-      body {
-        font-family: 'Open Sans', sans-serif;
-      }
-      /* App fit Height */ 
-      html, body, #__next {
-        min-height: 100vh;
-        display: flex;
-        flex: 1;
-      }
-      #__next {
-        flex: 1;
-      }
-      #__next > * {
-        flex: 1;
-      }
-      /* ./App fit Height */ 
-    `}</style>
-  );
-}
+import { useState } from 'react'
+import { useRouter } from 'next/router'
 
 function Titulo(props) {
   const Tag = props.tag || 'h1';
@@ -47,11 +20,11 @@ function Titulo(props) {
 }
 
 export default function PaginaInicial() {
-  const username = 'RyanHenriqueBelfort';
-  
+  const [username, setUsername] = useState('')
+  const router = useRouter()
+
   return (
     <>
-      <GlobalStyle />
       <Box
         styleSheet={{
           display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -82,6 +55,12 @@ export default function PaginaInicial() {
               display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
               width: { xs: '100%', sm: '50%' }, textAlign: 'center', marginBottom: '32px',
             }}
+            onSubmit= {function(e){
+              e.preventDefault()
+              if(username){
+                router.push('/chat')
+              }
+            }}
           >
             <Titulo tag="h2">Boas vindas de volta!</Titulo>
             <Text variant="body3" styleSheet={{ marginBottom: '32px', color: appConfig.theme.colors.neutrals[300] }}>
@@ -98,6 +77,7 @@ export default function PaginaInicial() {
                   backgroundColor: appConfig.theme.colors.neutrals[800],
                 },
               }}
+              onChange={(e) => setUsername(e.target.value)}
             />
             <Button
               type='submit'
@@ -130,6 +110,7 @@ export default function PaginaInicial() {
               minHeight: '240px',
             }}
           >
+
             <Image
               styleSheet={{
                 borderRadius: '50%',
@@ -137,6 +118,7 @@ export default function PaginaInicial() {
               }}
               src={`https://github.com/${username}.png`}
             />
+          {username &&
             <Text
               variant="body4"
               styleSheet={{
@@ -146,8 +128,9 @@ export default function PaginaInicial() {
                 borderRadius: '1000px'
               }}
             >
-              {username}
+              {username ? username : ``}
             </Text>
+          }
           </Box>
           {/* Photo Area */}
         </Box>
