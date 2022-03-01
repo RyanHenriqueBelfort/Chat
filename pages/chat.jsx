@@ -12,12 +12,12 @@ const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANNON_KEY)
 
 function escutaMensagensEmTempoReal(adicionaMensagem) {
     return supabaseClient
-      .from('mensagens')
-      .on('INSERT', (respostaLive) => {
-        adicionaMensagem(respostaLive.new);
-      })
-      .subscribe();
-  }
+        .from('mensagens')
+        .on('INSERT', (respostaLive) => {
+            adicionaMensagem(respostaLive.new);
+        })
+        .subscribe();
+}
 
 export default function ChatPage() {
     const roteamento = useRouter()
@@ -36,11 +36,11 @@ export default function ChatPage() {
             })
 
         escutaMensagensEmTempoReal((novaMensagem) => {
-            SetListaDeMensagens((valorAtualDaLista) =>{
-                  return [
-                        novaMensagem,
-                        ...valorAtualDaLista,
-                    ]
+            SetListaDeMensagens((valorAtualDaLista) => {
+                return [
+                    novaMensagem,
+                    ...valorAtualDaLista,
+                ]
             })
         })
     }, [SetListaDeMensagens])
@@ -89,7 +89,28 @@ export default function ChatPage() {
                     padding: '32px',
                 }}
             >
+                <Box
+                    styleSheet={{
+                        display: 'flex',
+                        alignItems: 'center',
+                    }}
+                >
+                    <Image
+                        styleSheet={{
+                            width: '50px',
+                            height: '50px',
+                            borderRadius: '50%',
+                            display: 'flex',
+                            marginRight: '8px',
+                        }}
+                        src={`https://github.com/${usuarioLogado}.png`}
+                    />
+                    {usuarioLogado}
+                </Box>
+                
+
                 <Header />
+
                 <Box
                     styleSheet={{
                         position: 'relative',
@@ -137,7 +158,7 @@ export default function ChatPage() {
                         />
                         <Button
                             label='Enviar'
-                            onClick={() =>{
+                            onClick={() => {
                                 handleNovaMensagem(mensagem)
                             }}
                             buttonColors={{
@@ -145,10 +166,10 @@ export default function ChatPage() {
                                 mainColor: appConfig.theme.colors.primary[500],
                                 mainColorLight: appConfig.theme.colors.primary[400],
                                 mainColorStrong: appConfig.theme.colors.primary[600],
-                              }}
-                              styleSheet={{
-                                  marginRight: '10px'
-                              }}
+                            }}
+                            styleSheet={{
+                                marginRight: '10px'
+                            }}
                         ></Button>
                         <ButtonSendSticker
                             onStickerClick={(sticker) => {
@@ -162,12 +183,11 @@ export default function ChatPage() {
     )
 }
 
-function Header() {
+function Header(props) {
     return (
         <>
             <Box styleSheet={{ width: '100%', marginBottom: '16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }} >
                 <Text variant='heading5'>
-                    Chat
                 </Text>
                 <Button
                     variant='tertiary'
