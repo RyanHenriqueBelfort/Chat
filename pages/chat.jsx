@@ -125,7 +125,7 @@ export default function ChatPage() {
                             placeholder="Insira sua mensagem aqui..."
                             type="textarea"
                             styleSheet={{
-                                width: '100%',
+                                width: '80%',
                                 border: '0',
                                 resize: 'none',
                                 borderRadius: '5px',
@@ -135,6 +135,21 @@ export default function ChatPage() {
                                 color: appConfig.theme.colors.neutrals[200],
                             }}
                         />
+                        <Button
+                            label='Enviar'
+                            onClick={() =>{
+                                handleNovaMensagem(mensagem)
+                            }}
+                            buttonColors={{
+                                contrastColor: appConfig.theme.colors.neutrals["000"],
+                                mainColor: appConfig.theme.colors.primary[500],
+                                mainColorLight: appConfig.theme.colors.primary[400],
+                                mainColorStrong: appConfig.theme.colors.primary[600],
+                              }}
+                              styleSheet={{
+                                  marginRight: '10px'
+                              }}
+                        ></Button>
                         <ButtonSendSticker
                             onStickerClick={(sticker) => {
                                 handleNovaMensagem(`:sticker:${sticker}`)
