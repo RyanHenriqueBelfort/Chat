@@ -45,7 +45,7 @@ export default function PaginaInicial() {
             width: '100%', maxWidth: '700px',
             borderRadius: '5px', padding: '32px', margin: '16px',
             boxShadow: '0 2px 10px 0 rgb(0 0 0 / 20%)',
-            backgroundColor: appConfig.theme.colors.neutrals[700],
+            backgroundColor: appConfig.theme.colors.neutrals[600],
           }}
         >
           {/* Formulário */}
@@ -55,10 +55,10 @@ export default function PaginaInicial() {
               display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
               width: { xs: '100%', sm: '50%' }, textAlign: 'center', marginBottom: '32px',
             }}
-            onSubmit= {function(e){
+            onSubmit={function (e) {
               e.preventDefault()
-              if(username){
-                router.push('/chat')
+              if (username) {
+                router.push(`/chat?username=${username}`)
               }
             }}
           >
@@ -118,19 +118,19 @@ export default function PaginaInicial() {
               }}
               src={`https://github.com/${username}.png`}
             />
-          {username &&
-            <Text
-              variant="body4"
-              styleSheet={{
-                color: appConfig.theme.colors.neutrals[200],
-                backgroundColor: appConfig.theme.colors.neutrals[900],
-                padding: '3px 10px',
-                borderRadius: '1000px'
-              }}
-            >
-              {username ? username : ``}
-            </Text>
-          }
+            {username &&
+              <Text
+                variant="body4"
+                styleSheet={{
+                  color: appConfig.theme.colors.neutrals[200],
+                  backgroundColor: appConfig.theme.colors.neutrals[900],
+                  padding: '3px 10px',
+                  borderRadius: '1000px'
+                }}
+              >
+                {username ? username : ``}
+              </Text>
+            }
           </Box>
           {/* Photo Area */}
         </Box>
